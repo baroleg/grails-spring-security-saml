@@ -1,7 +1,4 @@
 buildscript {
-    ext {
-        grailsVersion = project.grailsVersion
-    }
     repositories {
         mavenLocal()
         jcenter()
@@ -9,72 +6,30 @@ buildscript {
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1"
-        classpath "io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE"
     }
 }
 
-plugins {
-    id "io.spring.dependency-management" version "0.5.2.RELEASE"
-    id "com.jfrog.bintray" version "1.2"
-    id "com.jfrog.artifactory" version "3.1.1"
-}
+//plugins {
+//    id "io.spring.dependency-management" version "0.5.2.RELEASE"
+//    id "com.jfrog.bintray" version "1.2"
+//    id "com.jfrog.artifactory" version "3.1.1"
+//}
 
-version "3.1.0"
-group "org.grails.plugins"
+version "${pluginVersion}${releaseType == 'snapshot' ? '-SNAPSHOT' : ''}"
+group "${group}"
 
-apply plugin: 'maven-publish'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: "spring-boot"
-apply plugin: "org.grails.grails-plugin"
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "org.springframework.boot"
 apply plugin: "org.grails.grails-gsp"
-apply plugin: "com.jfrog.artifactory"
-apply plugin: "com.jfrog.bintray"
-apply plugin: "io.spring.dependency-management"
-// Used for publishing to central repository, remove if not needed
-apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/grailsCentralPublishing.gradle'
-//apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
+apply plugin: "org.grails.grails-plugin"
+//apply plugin:"org.grails.grails-plugin-publish"
+//apply plugin: "io.spring.dependency-management"
 
-bintray {
-    user = System.getenv("BINTRAY_USER") ?: System.getProperty("bintray.user") ?: project.hasProperty("bintrayUser") ? project.bintrayUser : ''
-    key = System.getenv("BINTRAY_KEY") ?: System.getProperty("bintray.key") ?: project.hasProperty("bintrayKey") ? project.bintrayKey : ''
-    publications = ['maven']
-    publish = true
-    pkg {
-        repo = project.hasProperty('repo') ? project.repo : 'plugins'
-        userOrg = '' //project.hasProperty('userOrg') ? project.userOrg : 'grails'
-        name = "$project.name"
-        desc = project.hasProperty('desc') ? project.desc : "Grails $project.name plugin"
-        websiteUrl = project.hasProperty('websiteUrl') ? project.websiteUrl : "http://grails.org/plugin/$project.name"
-        issueTrackerUrl = project.hasProperty('issueTrackerUrl') ? project.issueTrackerUrl : "https://github.com/grails3-plugins/$project.name/issues"
-        vcsUrl = project.hasProperty('vcsUrl') ? project.vcsUrl : "https://github.com/grails3-plugins/$project.name"
-        licenses = project.hasProperty('license') ? [project.license] : ['Apache-2.0']
-        publicDownloadNumbers = true
-        version {
-            attributes = ['grails-plugin': "$project.group:$project.name"]
-            name = project.version
-            gpg {
-                sign = false
-                passphrase = System.getenv("SIGNING_PASSPHRASE") ?: project.hasProperty("signingPassphrase") ? project.signingPassphrase : ''
-            }
-            mavenCentralSync {
-                sync = false
-                user = System.getenv("SONATYPE_USERNAME") ?: project.hasProperty("sonatypeOssUsername") ? project.sonatypeOssUsername : ''
-                password = System.getenv("SONATYPE_PASSWORD") ?: project.hasProperty("sonatypeOssPassword") ? project.sonatypeOssPassword : ''
-            }
-        }
-    }
-}
-
-
-ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
-}
-
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+//ext {
+//    grailsVersion = project.grailsVersion
+//    gradleWrapperVersion = project.gradleWrapperVersion
+//}
 
 repositories {
     mavenLocal()
@@ -86,12 +41,12 @@ repositories {
     maven { url "http://repository.jboss.org/maven2/"}
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "org.grails:grails-bom:$grailsVersion"
-    }
-    applyMavenExclusions false
-}
+//dependencyManagement {
+//    imports {
+//        mavenBom "org.grails:grails-bom:$grailsVersion"
+//    }
+//    applyMavenExclusions false
+//}
 
 dependencies {
     provided 'org.springframework.boot:spring-boot-starter-logging'
@@ -108,7 +63,16 @@ dependencies {
 
     console "org.grails:grails-console"
 
-    compile 'org.grails.plugins:spring-security-core:3.1.1'
+    compile 'org.grails.plugins:spring-security-core:3.2.0'
+
+//    compile "org.grails:grails-core"
+//    compile "org.grails:grails-web-taglib:3.3.0"
+//    compile group: 'io.projectreactor', name: 'reactor-bus', version: '2.0.2.RELEASE'
+//    compile "io.projectreactor:reactor-core:3.1.2.RELEASE"
+//    testCompile("io.projectreactor:reactor-test:3.1.2.RELEASE")
+//    compile 'org.springframework:spring-beans:4.3.7.RELEASE'
+//    compile group: 'org.grails', name: 'grails-datastore-gorm-hibernate', version: '6.0.0.M1'
+//    compile group: 'org.grails', name: 'grails-web-gsp', version: '3.2.11'
 
     compile("commons-httpclient:commons-httpclient:3.1") {
         exclude module: ['commons-codec', 'commons-logging', 'junit']
@@ -148,6 +112,26 @@ dependencies {
 }
 
 
-task wrapper(type: Wrapper) {
-    gradleVersion = gradleWrapperVersion
+//task wrapper(type: Wrapper) {
+//    gradleVersion = gradleWrapperVersion
+//}
+
+bootRun {
+    jvmArgs('-Dspring.output.ansi.enabled=always')
+    addResources = true
 }
+
+// enable if you wish to package this plugin as a standalone application
+bootRepackage.enabled = false
+//
+//publishing {
+//    repositories {
+//        maven {
+//            url "https://artifactory-cloud.ps.int.clarivate.com/artifactory/plugins-${releaseType}-local"
+//            credentials {
+//                username "${artifactory_user}"
+//                password "${artifactory_password}"
+//            }
+//        }
+//    }
+//}

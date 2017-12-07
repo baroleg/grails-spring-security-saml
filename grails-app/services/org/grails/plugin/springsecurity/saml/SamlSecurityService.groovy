@@ -10,6 +10,7 @@ import grails.plugin.springsecurity.SpringSecurityService
  * @author alvaro.sanchez
  */
 class SamlSecurityService extends SpringSecurityService {
+
     SpringSamlUserDetailsService userDetailsService
     def userCache
     static transactional = false
@@ -47,4 +48,5 @@ class SamlSecurityService extends SpringSecurityService {
             }
         } else { return null}
     }
+
 }

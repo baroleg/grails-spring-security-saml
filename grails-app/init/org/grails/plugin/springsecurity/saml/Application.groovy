@@ -2,13 +2,11 @@ package org.grails.plugin.springsecurity.saml
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration
-
-import static grails.util.Metadata.getCurrent
-import static grails.util.Metadata.getCurrent
-import static grails.util.Metadata.getCurrent
+import grails.plugins.metadata.PluginSource
 
 import static grails.util.Metadata.current as metaInfo
 
+@PluginSource
 class Application extends GrailsAutoConfiguration {
     static void main(String[] args) {
 

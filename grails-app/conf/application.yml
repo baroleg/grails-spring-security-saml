@@ -56,20 +56,20 @@ grails:
         encoding: UTF-8
     plugin:
         springsecurity:
-            userLookup:
-                  userDomainClassName: 'test.TestSamlUser'
-                  usernamePropertyName: 'username'
-                  enabledPropertyName: 'enabled'
-                  passwordPropertyName: 'password'
-                  authoritiesPropertyName: 'roles'
-                  authorityJoinClassName: 'test.TestUserRole'
-            requestMap:
-                  className: 'test/TestRequestmap'
-                  urlField: 'urlPattern'
-                  configAttributeField: 'rolePattern'
-            authority:
-                  className: 'test.testRole'
-                  nameField: 'auth'
+#            userLookup:
+#                  userDomainClassName: 'test.TestSamlUser'
+#                  usernamePropertyName: 'username'
+#                  enabledPropertyName: 'enabled'
+#                  passwordPropertyName: 'password'
+#                  authoritiesPropertyName: 'roles'
+#                  authorityJoinClassName: 'test.TestUserRole'
+#            requestMap:
+#                  className: 'test/TestRequestmap'
+#                  urlField: 'urlPattern'
+#                  configAttributeField: 'rolePattern'
+#            authority:
+#                  className: 'test.testRole'
+#                  nameField: 'auth'
             saml:
                   userAttributeMappings: [username: 'username']
                   active: true
