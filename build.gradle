@@ -23,7 +23,7 @@ apply plugin: "idea"
 apply plugin: "org.springframework.boot"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "org.grails.grails-plugin"
-//apply plugin:"org.grails.grails-plugin-publish"
+apply plugin:"org.grails.grails-plugin-publish"
 //apply plugin: "io.spring.dependency-management"
 
 //ext {
@@ -123,15 +123,15 @@ bootRun {
 
 // enable if you wish to package this plugin as a standalone application
 bootRepackage.enabled = false
-//
-//publishing {
-//    repositories {
-//        maven {
-//            url "https://artifactory-cloud.ps.int.clarivate.com/artifactory/plugins-${releaseType}-local"
-//            credentials {
-//                username "${artifactory_user}"
-//                password "${artifactory_password}"
-//            }
-//        }
-//    }
-//}
+
+publishing {
+    repositories {
+        maven {
+            url "https://artifactory-cloud.ps.int.clarivate.com/artifactory/plugins-${releaseType}-local"
+            credentials {
+                username "${artifactory_user}"
+                password "${artifactory_password}"
+            }
+        }
+    }
+}
