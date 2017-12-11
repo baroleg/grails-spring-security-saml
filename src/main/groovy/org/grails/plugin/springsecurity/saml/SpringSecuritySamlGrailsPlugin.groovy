@@ -368,16 +368,6 @@ class SpringSecuritySamlGrailsPlugin extends Plugin {
                 webInvocationPrivilegeEvaluator = ref('webInvocationPrivilegeEvaluator')
             }
 
-//            springSecurityService(SamlSecurityService) {
-//                config = conf
-//                authenticationTrustResolver = ref('authenticationTrustResolver')
-//                grailsApplication = grailsApplication //(GrailsApplication)ref('grailsApplication')
-//                passwordEncoder = ref('passwordEncoder')
-//                objectDefinitionSource = ref('objectDefinitionSource')
-//                userDetailsService = ref('userDetailsService')
-//                userCache = ref('userCache')
-//            }
-
             println '...finished configuring Spring Security SAML'
         }
 

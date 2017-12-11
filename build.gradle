@@ -9,12 +9,6 @@ buildscript {
     }
 }
 
-//plugins {
-//    id "io.spring.dependency-management" version "0.5.2.RELEASE"
-//    id "com.jfrog.bintray" version "1.2"
-//    id "com.jfrog.artifactory" version "3.1.1"
-//}
-
 version "${pluginVersion}${releaseType == 'snapshot' ? '-SNAPSHOT' : ''}"
 group "${group}"
 
@@ -24,12 +18,6 @@ apply plugin: "org.springframework.boot"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "org.grails.grails-plugin"
 apply plugin:"org.grails.grails-plugin-publish"
-//apply plugin: "io.spring.dependency-management"
-
-//ext {
-//    grailsVersion = project.grailsVersion
-//    gradleWrapperVersion = project.gradleWrapperVersion
-//}
 
 repositories {
     mavenLocal()
@@ -40,13 +28,6 @@ repositories {
     maven { url "https://code.lds.org/nexus/content/groups/main-repo"}
     maven { url "http://repository.jboss.org/maven2/"}
 }
-
-//dependencyManagement {
-//    imports {
-//        mavenBom "org.grails:grails-bom:$grailsVersion"
-//    }
-//    applyMavenExclusions false
-//}
 
 dependencies {
     provided 'org.springframework.boot:spring-boot-starter-logging'
@@ -64,15 +45,6 @@ dependencies {
     console "org.grails:grails-console"
 
     compile 'org.grails.plugins:spring-security-core:3.2.0'
-
-//    compile "org.grails:grails-core"
-//    compile "org.grails:grails-web-taglib:3.3.0"
-//    compile group: 'io.projectreactor', name: 'reactor-bus', version: '2.0.2.RELEASE'
-//    compile "io.projectreactor:reactor-core:3.1.2.RELEASE"
-//    testCompile("io.projectreactor:reactor-test:3.1.2.RELEASE")
-//    compile 'org.springframework:spring-beans:4.3.7.RELEASE'
-//    compile group: 'org.grails', name: 'grails-datastore-gorm-hibernate', version: '6.0.0.M1'
-//    compile group: 'org.grails', name: 'grails-web-gsp', version: '3.2.11'
 
     compile("commons-httpclient:commons-httpclient:3.1") {
         exclude module: ['commons-codec', 'commons-logging', 'junit']
@@ -110,11 +82,6 @@ dependencies {
 
 
 }
-
-
-//task wrapper(type: Wrapper) {
-//    gradleVersion = gradleWrapperVersion
-//}
 
 bootRun {
     jvmArgs('-Dspring.output.ansi.enabled=always')
